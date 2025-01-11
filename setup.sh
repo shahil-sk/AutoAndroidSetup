@@ -56,6 +56,34 @@ greet() {
     echo -e "${MAGENTA}        \/     \/           |__|                  ${RESET}"
 }
 
+outro() 
+{
+    clear
+    echo -e " ${GREEN}      (        )     )      "
+    echo -e "       )\ )  ( /(  ( /(      "
+    echo -e "      (()/(  )\()) )\())(    "
+    echo -e "       /(_))((_)\ ((_)\ )\   "
+    echo -e "      (_))_   ((_) _((_|(_)  "
+    echo -e "       |   \ / _ \| \| | __| "
+    echo -e "       | |) | (_) | .\` | _|  "
+    echo -e "       |___/ \___/|_|\_|___| "
+    echo -e "                             ${RESET}"
+    echo -e "${CYAN}--------------------------------------------------"
+    echo " Run this to Start MobSF"
+    echo "  1) docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest"
+    echo "--------------------------------------------------"
+    echo " Run this to Start Jadx"
+    echo "  1) Cd /jadx/bin"
+    echo "  2) ./jadx-gui"
+    echo "--------------------------------------------------"
+    echo " Run this to Start Apktool"
+    echo "  1) Cd /APKTool"
+    echo "  2) java -jar apktool_2.10.0.jar"
+    echo "--------------------------------------------------"
+    echo -e "${GREEN}DONE! Enjoy Hacking :-))))${RESET}"
+    echo ""
+}
+
 # Function to install a package and log the result
 install_package() {
     local PACKAGE=$1
@@ -105,10 +133,6 @@ install_docker_mobsf() {
     install_package "docker.io"
     log "NOTE" "Pulling MobSF Image from Docker"
     sudo docker pull opensecurity/mobile-security-framework-mobsf:latest
-    echo ""
-    echo -e "${COLOR}--------------------------------------------------"
-    echo "Run this to Start MobSF"
-    echo "[' docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest' ]"
 }
 
 # Function to display the tools that will be installed and ask the user for confirmation
@@ -144,10 +168,9 @@ confirm_installation() {
 # Main setup function to orchestrate the entire installation process
 setup() {
     greet
-    echo "[INFO] - Starting the Setup"
-
     # Confirm installation
     confirm_installation
+    echo "[INFO] - Starting the Setup"
 
     # System update
     log "INFO" "System Update"
@@ -195,9 +218,8 @@ setup() {
     # Install Docker and MobSF
     install_docker_mobsf
 
-    echo "--------------------------------------------------"
-    echo -e "${GREEN}DONE${RESET}"
-    echo ""
+    outro
+    
 }
 
 # Run the setup
