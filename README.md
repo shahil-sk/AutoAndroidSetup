@@ -1,6 +1,6 @@
 # Android Security Tools Setup Script
 
-This script automates the setup and installation of various Android security tools commonly used for mobile security testing, reverse engineering, and analysis. The script installs tools like Drozer, Frida, Objection, ApkLeaks, reFlutter, JADX, APKTool, Docker with MobSF, and other essential packages.
+This script automates the setup and installation of various Android security tools commonly used for mobile security testing, reverse engineering, and analysis. The script installs tools like Drozer, Frida, Objection, ApkLeaks, reFlutter, JADX, APKTool, Docker with MobSF, and other essential packages for linux.
 
 ## Tools Included
 
