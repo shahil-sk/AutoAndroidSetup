@@ -27,5 +27,5 @@ This setup installs the following tools:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/Android-Security-Tools-Setup.git
-cd Android-Security-Tools-Setup
+git clone https://github.com/shahil-sk/AutoAndroidSetup.git
+cd AutoAndroidSetup
