@@ -84,6 +84,15 @@ outro()
     echo ""
 }
 
+check_internet() {
+    # Check internet connection using ping to google.com
+    if ping -c 1 google.com > /dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Function to install a package and log the result
 install_package() {
     local PACKAGE=$1
@@ -168,6 +177,13 @@ confirm_installation() {
 # Main setup function to orchestrate the entire installation process
 setup() {
     greet
+    # Checking Internect Connection
+    check_internet
+    if [ $? -ne 0 ]; then  # Check if the exit status is not 0 (indicating failure)
+        echo "[NOTE] No Internet Connection"
+        exit 1  # Exit with failure status
+    fi
+    
     # Confirm installation
     confirm_installation
     echo "[INFO] - Starting the Setup"
