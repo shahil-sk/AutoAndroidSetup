@@ -24,8 +24,17 @@ This setup installs the following tools:
 
 ## Installation
 
-### Step 1: Clone the Repository
+#### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/shahil-sk/AutoAndroidSetup.git
+```
+#### Step 2: Go to AutoAndroidSetup
+```bash
 cd AutoAndroidSetup
+```
+
+#### Step 3: Run the Setup
+```bash
+bash setup.sh
+```
