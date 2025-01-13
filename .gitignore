@@ -1,5 +1,6 @@
 test.sh
 APKTool/apktool_2.10.0.jar
+jadx
 jadx/bin/jadx
 jadx/bin/jadx-gui
 jadx/bin/jadx-gui.bat
