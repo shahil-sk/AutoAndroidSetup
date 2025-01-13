@@ -1,1 +1,8 @@
 test.sh
+APKTool/apktool_2.10.0.jar
+jadx/bin/jadx
+jadx/bin/jadx-gui
+jadx/bin/jadx-gui.bat
+jadx/bin/jadx.bat
+jadx/lib/jadx-1.5.1-all.jar
+Drozer/drozerAgent.apk

@@ -197,8 +197,8 @@ setup() {
     # Python setup
     log "INFO" "Setting up Python"
     install_package "python3"
-    python3 -m venv myapps
-    source myapps/bin/activate
+    python3 -m venv /home/$USER/piptools
+    source /home/$USER/piptools/bin/activate
 
     # Install Drozer
     install_pip_tool "drozer"
