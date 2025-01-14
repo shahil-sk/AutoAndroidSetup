@@ -73,13 +73,9 @@ outro()
     echo " Run this to Start MobSF"
     echo "  1) docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest"
     echo "--------------------------------------------------"
-    echo " Run this to Start Jadx"
-    echo "  1) Cd /jadx/bin"
-    echo "  2) ./jadx-gui"
-    echo "--------------------------------------------------"
-    echo " Run this to Start Apktool"
-    echo "  1) Cd /APKTool"
-    echo "  2) java -jar apktool_2.10.0.jar"
+    echo " Terminal Commands for non-cli tools"
+    echo " Jadx    >  jadx"
+    echo " APKTool > apktool"
     echo "--------------------------------------------------"
     echo -e "${GREEN}DONE! Enjoy Hacking :-))))${RESET}"
     echo ""
@@ -120,21 +116,41 @@ install_pip_tool() {
 
 # Function to install and extract JADX
 install_jadx() {
-    log "INFO" "Installing JADX"
     wget "https://github.com/skylot/jadx/releases/download/v1.5.1/jadx-1.5.1.zip"
     mkdir -p jadx
     echo "Extracting JADX..."
     unzip jadx-1.5.1.zip -d ./jadx
+    
+    #delete jadx archive
     rm -f jadx-1.5.1.zip
+    
+    # Make the script executable
+    sudo chmod +x ./jadx/bin/jadx-gui
+    sudo chmod +x ./jadx/bin/jadx
+
+    #move jadx to /opt for global access
+    sudo mv ./jadx /opt
+    sleep 2
+
+    #jadx wrapper code 
+    echo -e "#!/bin/bash\n/opt/jadx/bin/jadx-gui" > jadx
+    chmod +x jadx
+    sudo mv jadx /usr/local/bin
+
     echo "JADX version 1.5.1 installed successfully."
+
 }
 
 # Function to download APKTool
 download_apktool() {
     log "NOTE" "Pulling APKTools"
-    wget "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.10.0.jar"
-    mkdir -p APKTool
-    mv apktool_2.10.0.jar ./APKTool
+    APKTOOL_URL=$(wget -qO- https://api.github.com/repos/iBotPeaches/Apktool/releases/latest| jq -r '.assets[] | select(.name | endswith(".jar")) | .browser_download_url')
+    wget -O apktool.jar "$APKTOOL_URL"
+    chmod +x apktool.jar
+    wget "https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool"
+    chmod +x apktool
+    sudo mv apktool /usr/local/bin/
+    sudo mv apktool.jar /usr/local/bin/
 }
 
 # Function to install Docker and MobSF image
@@ -215,7 +231,7 @@ setup() {
     install_pip_tool "drozer"
     
     # Download Drozer Agent APK
-    # download_drozer_agent
+    download_drozer_agent
     
     # Install Frida-tools
     install_pip_tool "frida-tools"
