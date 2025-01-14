@@ -13,6 +13,8 @@
 
 ![Screenshot from 2025-01-12 08-54-27](https://github.com/user-attachments/assets/d7ff337b-e209-43b6-94c1-52ed6e725e66)
 
+<h2>Pre-Requisites: pipx installed on your device</h2>
+
 <h2>🛠️ Installation Steps:</h2>
 
   #### Step 1: Clone the Repository
