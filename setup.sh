@@ -51,14 +51,15 @@ greet() {
     echo -e "${MAGENTA}  _________       __                              "
     echo -e "${MAGENTA} /   _____/ _____/  |_ __ ________                "
     echo -e "${MAGENTA} \_____  \_/ __ \   __\  |  \____ \               "
-    echo -e "${MAGENTA} /        \  ___/|  | |  |  /  |_> >  by @shahil-sk             "
+    echo -e "${MAGENTA} /        \  ___/|  | |  |  /  |_> >  by @shahil-sk"
     echo -e "${MAGENTA}/_______  /\___  >__| |____/|   __/               "
     echo -e "${MAGENTA}        \/     \/           |__|                  ${RESET}"
+    echo -e ""
 }
 
 outro() 
 {
-    clear
+    echo ""
     echo -e " ${GREEN}      (        )     )      "
     echo -e "       )\ )  ( /(  ( /(      "
     echo -e "      (()/(  )\()) )\())(    "
@@ -97,7 +98,7 @@ check_internet() {
 install_package() {
     local PACKAGE=$1
     log "INFO" "Installing $PACKAGE"
-    sudo nala install -y "$PACKAGE"
+    sudo apt install -y "$PACKAGE"
 }
 
 # Function to download and extract the latest Drozer agent APK
@@ -114,7 +115,7 @@ download_drozer_agent() {
 install_pip_tool() {
     local TOOL=$1
     log "INFO" "Installing $TOOL"
-    pip install "$TOOL"
+    pipx install "$TOOL"
 }
 
 # Function to install and extract JADX
@@ -157,15 +158,35 @@ confirm_installation() {
     echo -e "8. APKTool"
     echo -e "9. Docker & MobSF Image"
     echo ""
+    log  "WARN" "PRE_REQUISITE : Pipx"
+    echo ""
     read -p "Do you want to continue with the installation of these tools? (y/n): " choice
     case "$choice" in
         y|Y|yes|Yes)
             log "INFO" "User confirmed to continue installation."
+            ;;
+        n|N|no|No)
+            log "NOTE" "User aborted the installation."
+            exit 0
+            ;;
+        *)
+            log "ERROR" "Invalid choice. Please enter 'y' or 'n'."
+            confirm_installation
+            ;;
+    esac
+}
+
+system_package_installation()
+{
+        # System update
+    read -p "Do you want to update the System Package? (y/n): " choice
+    case "$choice" in
+        y|Y|yes|Yes)
+            sudo apt update
             return 0
             ;;
         n|N|no|No)
-            log "INFO" "User aborted the installation."
-            exit 0
+            log "WARN" "Skipping System package update. this might cause some error"
             ;;
         *)
             log "ERROR" "Invalid choice. Please enter 'y' or 'n'."
@@ -186,25 +207,15 @@ setup() {
     
     # Confirm installation
     confirm_installation
+    system_package_installation
     echo "[INFO] - Starting the Setup"
 
-    # System update
-    log "INFO" "System Update"
-    sudo apt update
-    sudo apt install nala
-    log "INFO" "System Updated"
-
-    # Python setup
-    log "INFO" "Setting up Python"
-    install_package "python3"
-    python3 -m venv /home/$USER/piptools
-    source /home/$USER/piptools/bin/activate
 
     # Install Drozer
     install_pip_tool "drozer"
     
     # Download Drozer Agent APK
-    download_drozer_agent
+    # download_drozer_agent
     
     # Install Frida-tools
     install_pip_tool "frida-tools"
