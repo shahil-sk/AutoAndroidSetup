@@ -199,6 +199,7 @@ system_package_installation()
     case "$choice" in
         y|Y|yes|Yes)
             sudo apt update
+            sudo apt install pipx
             return 0
             ;;
         n|N|no|No)
