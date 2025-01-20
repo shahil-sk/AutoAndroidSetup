@@ -77,6 +77,9 @@ outro()
     echo " Jadx    >  jadx"
     echo " APKTool > apktool"
     echo "--------------------------------------------------"
+    echo "Make sure you download the correct Frida-server file from"
+    echo ">> https://github.com/frida/frida/releases"
+    echo "--------------------------------------------------"
     echo -e "${GREEN}DONE! Enjoy Hacking :-))))${RESET}"
     echo ""
 }
@@ -86,7 +89,8 @@ check_internet() {
     if ping -c 1 google.com > /dev/null 2>&1; then
         return 0
     else
-        return 1
+        echo "[NOTE] No Internet Connection"
+        exit 1 
     fi
 }
 
@@ -163,16 +167,18 @@ install_docker_mobsf() {
 
 # Function to display the tools that will be installed and ask the user for confirmation
 confirm_installation() {
-    echo -e "${YELLOW}The following tools will be installed:${RESET}"
+    echo -e "${YELLOW}The following tools & Applications will be installed:${RESET}"
     echo -e "1. Drozer Agent"
     echo -e "2. Frida-tools"
     echo -e "3. Objection Tool"
-    echo -e "4. ApkLeaks"
+    echo -e "4. ApkLeaks" 
     echo -e "5. reFlutter"
     echo -e "6. OpenJDK 11"
     echo -e "7. JADX"
     echo -e "8. APKTool"
     echo -e "9. Docker & MobSF Image"
+    echo -e "10. ADB"
+    echo -e "11. Sqlitebrowser"
     echo ""
     log  "WARN" "PRE_REQUISITE : Pipx"
     echo ""
@@ -217,16 +223,20 @@ setup() {
     greet
     # Checking Internect Connection
     check_internet
-    if [ $? -ne 0 ]; then  # Check if the exit status is not 0 (indicating failure)
-        echo "[NOTE] No Internet Connection"
-        exit 1  # Exit with failure status
-    fi
     
     # Confirm installation
     confirm_installation
     system_package_installation
     echo "[INFO] - Starting the Setup"
 
+    # Install ADB
+    install_package "adb"
+
+    # Install sqlitebrowser
+    sudo apt-get install sqlitebrowser
+
+    # Install OpenJDK 11
+    install_package "openjdk-11-jdk"
 
     # Install Drozer
     install_pip_tool "drozer"
@@ -236,10 +246,6 @@ setup() {
     
     # Install Frida-tools
     install_pip_tool "frida-tools"
-    frida --version
-    echo "Make sure you download the correct Frida-server file from"
-    echo ">> https://github.com/frida/frida/releases"
-    echo "--------------------------------------------------"
     
     # Install Objection Tool
     install_pip_tool "objection"
@@ -250,9 +256,6 @@ setup() {
     # Install reFlutter
     install_pip_tool "reflutter"
 
-    # Install OpenJDK 11
-    install_package "openjdk-11-jdk"
-
     # Install JADX
     install_jadx
 
@@ -262,6 +265,7 @@ setup() {
     # Install Docker and MobSF
     install_docker_mobsf
 
+    
     outro
     
 }
