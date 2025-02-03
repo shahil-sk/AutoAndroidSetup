@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://socialify.git.ci/shahil-sk/AutoAndroidSetup/image?font=Bitter&amp;logo=https%3A%2F%2Fimg.utdstc.com%2Ficon%2F164%2Fca4%2F164ca4248909975cac18e46fe9a8299e5682edebe4104168475cf1ab3c76f5d8%3A100&amp;name=1&amp;owner=1&amp;pattern=Solid&amp;theme=Dark" alt="project-image"></p>
 
-<p id="description">This script automates the setup and installation of various Android security tools commonly used for mobile security testing reverse engineering and analysis. The script installs tools like Drozer Frida Objection ApkLeaks reFlutter JADX APKTool Docker with MobSF for linux using bash.</p>
+<p id="description">This Open Source script that automates the setup and installation of various Android security tools commonly used for mobile security testing reverse engineering and analysis. The script installs tools like Drozer Frida Objection ApkLeaks reFlutter JADX APKTool Docker with MobSF for linux using bash.</p>
 
 ## Tools Included:
 
